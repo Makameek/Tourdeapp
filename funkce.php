@@ -28,13 +28,13 @@ function verifyToken(){
 
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $resultUN = $conn->query("SELECT username FROM login WHERE username='$username'");
+    $resultUN = $conn->query("SELECT username FROM login WHERE username='$username' AND password='$password'");
     
-    if($resultUN && mysqli_num_rows($resultUN) > 0) {
-        echo("spravne prihlasovaci jmeno");
+    if(mysqli_num_rows($resultUN) > 0) {
+        header('Location: Test.php'); 
     }
     else {
-        echo("spatne");
+        echo("Špatné jméno, nebo heslo.");
     }
 
     $conn->close();
