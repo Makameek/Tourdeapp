@@ -31,7 +31,14 @@ function verifyToken(){
     $resultUN = $conn->query("SELECT username FROM login WHERE username='$username' AND password='$password'");
     
     if(mysqli_num_rows($resultUN) > 0) {
-        header('Location: Test.php'); 
+       $roleresult = $conn->query("SELECT manazer, vedouci, prodavac, skladnik FROM login WHERE username='$username'");
+
+
+        $roles = $roleresult->fetch_assoc();
+        echo ($roles["skladnik"]);
+        
+
+        header('Location: Menu.php'); 
     }
     else {
         echo("Špatné jméno, nebo heslo.");
@@ -39,6 +46,5 @@ function verifyToken(){
 
     $conn->close();
    }   
-
 
 ?>
