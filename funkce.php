@@ -76,5 +76,11 @@ function toKalendar() {
   </form>
  <?php }
  }
-  
+function toManagement() {
+  if($_SESSION["roles"]['manazer'] == "1") { ?>
+    <form action="management.php">
+      <input type="submit" value="Správa uživatelů">
+    </form>
+ <?php }
+ }  
 ?>

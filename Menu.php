@@ -7,7 +7,7 @@ if($_SESSION["roles"] == 0) {
 toSklad();
 toPokladna();
 toKalendar();
-
+toManagement();
 
 ?>
 <form action=logout.php>

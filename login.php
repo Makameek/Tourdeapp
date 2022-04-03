@@ -8,9 +8,8 @@ $_SESSION["roles"] = 0;
 <head>
   <title>Login</title>
 </head>
-<body>
-
-<div>
+ <body>
+  <div>
     <form action="login.php" method="post">
      <label for="username">Uživatelské jméno:</label>
      <input type="text" name="username" value="">
@@ -20,9 +19,8 @@ $_SESSION["roles"] = 0;
       <br>
      <input type="submit" value="Přihlásit se" name="login">
     </form> 
-</div>
-
-</body>
+  </div>
+ </body>
 </html>
 
 <?php
