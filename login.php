@@ -27,6 +27,7 @@ $_SESSION["roles"] = 0;
 
 <?php
 if(isset($_POST['login'])) {
+    usersConnect();
     verifyToken();
 }
 ?>

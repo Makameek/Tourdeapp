@@ -6,32 +6,20 @@ function usersConnect() {
     $dbpassword = "";
     $database = "users";
    
-    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $database);
-    if ($conn->connect_error) {
+    $_SESSION["conn"] = new mysqli($dbservername, $dbusername, $dbpassword, $database);
+    if ($_SESSION["conn"]->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
-    return $conn;
+  
    }
 
 function verifyToken(){
-    $conn = 0;
-    $dbservername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "";
-    $database = "users";
-   
-    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $database);
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-    
-
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $resultUN = $conn->query("SELECT username FROM login WHERE username='$username' AND password='$password'");
+    $resultUN = $_SESSION["conn"]->query("SELECT username FROM login WHERE username='$username' AND password='$password'");
     
     if(mysqli_num_rows($resultUN) > 0) {
-       $roleresult = $conn->query("SELECT manazer, vedouci, prodavac, skladnik FROM login WHERE username='$username'");
+       $roleresult = $_SESSION["conn"]->query("SELECT manazer, vedouci, prodavac, skladnik FROM login WHERE username='$username'");
 
 
         $_SESSION["roles"] = $roleresult->fetch_assoc();
@@ -44,7 +32,7 @@ function verifyToken(){
         echo("Špatné jméno, nebo heslo.");
     }
 
-    $conn->close();
+    $_SESSION["conn"]->close();
    }   
 
 function toSklad() {
