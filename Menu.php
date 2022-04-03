@@ -1,6 +1,16 @@
 <?php
-echo("Úspěšně jste se přihlásili!");
+include 'funkce.php';
+session_start();
+if($_SESSION["roles"] == 0) {
+    header('Location: login.php');
+}
+toSklad();
+toPokladna();
+toKalendar();
+
+
 ?>
-<form action="login.php">
-<input type="submit" value="Odhlásit se" name="submit">
+<form action=logout.php>
+<input type="submit" value="Odhlásit se" name="logout">
 </form>
+

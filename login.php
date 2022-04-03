@@ -1,5 +1,7 @@
 <?php
+session_start();
 include 'funkce.php';
+$_SESSION["roles"] = 0;
 ?>
 
 <html>
@@ -16,7 +18,7 @@ include 'funkce.php';
      <label for="pass">Heslo:</label>
      <input type="password" name="password" value="">
       <br>
-     <input type="submit" value="Přihlásit se" name="submit">
+     <input type="submit" value="Přihlásit se" name="login">
     </form> 
 </div>
 
@@ -24,7 +26,7 @@ include 'funkce.php';
 </html>
 
 <?php
-if(isset($_POST['submit'])) {
+if(isset($_POST['login'])) {
     verifyToken();
 }
 ?>
