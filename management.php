@@ -18,9 +18,9 @@ echo ("<table border='1px'>
 while($row = mysqli_fetch_array($dbtable))
 {
 echo ("<tr>");
-echo ("<td>" . $row['name'] . "</td>");
+echo ("<td>" . $row['names'] . "</td>");
 echo ("<td>" . $row['username'] . "</td>");
-echo ("<td>" . $row['password'] . "</td>");
+echo ("<td>" . $row['passwords'] . "</td>");
 echo ("<td>" . $row['manazer'] . "</td>");
 echo ("<td>" . $row['vedouci'] . "</td>");
 echo ("<td>" . $row['prodavac'] . "</td>");
@@ -30,6 +30,4 @@ echo ("</tr>");
 echo ("</table>");
 echo ("<br>");
 
-//echo("<h2>Smazání uživatele:</h2>");
-//deleteUser();
 ?>

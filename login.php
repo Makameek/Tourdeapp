@@ -1,5 +1,9 @@
 <?php
 session_start();
+if($_SESSION["switch"] !== 1) {
+header("Location: index.php");
+}
+
 include 'funkce.php';
 $_SESSION["roles"] = 0;
 ?>
@@ -25,7 +29,7 @@ $_SESSION["roles"] = 0;
 
 <?php
 if(isset($_POST['login'])) {
-    usersConnect();
-    verifyToken();
+usersConnect();
+verifyToken();
 }
 ?>

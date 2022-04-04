@@ -12,11 +12,10 @@ function usersConnect() {
     }
   
    }
-
 function verifyToken(){
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $resultUN = $_SESSION["conn"]->query("SELECT username FROM login WHERE username='$username' AND password='$password'");
+    $resultUN = $_SESSION["conn"]->query("SELECT username FROM login WHERE username='$username' AND passwords='$password'");
     
     if(mysqli_num_rows($resultUN) > 0) {
        $roleresult = $_SESSION["conn"]->query("SELECT manazer, vedouci, prodavac, skladnik FROM login WHERE username='$username'");
@@ -83,23 +82,12 @@ function toManagement() {
     </form>
  <?php }
  } 
-function deleteUser() {
- ?>
- <form method="post">
+function todeleteUser() { ?>
+  <form name="deleteForm" method="post" action="deleteUser.php">
   <input type="text" name="delete" value="Zadejte jméno" />
-  <input type="submit" name="delbutton" value="Smazat" />
+  <input type="Submit" name="delbutton" id="Submit" value="Smazat" />
  </form>
  <?php
- $delval = $_POST["delete"];
- if(isset($_POST['delbutton'])) { 
-    $delprocess = "DELETE FROM `login` WHERE name=$delval;";
-    if ($_SESSION["conn"]->query($delprocess) === true) { 
-     echo ("Smazání proběhlo úspěšně, změny se projeví po znovunačtení stránky.");
-    }
-     else {
-       echo("Nic se nestalo :(");
-     }
-    }
-   }  
-  ?>
+ }
+ ?>
  
