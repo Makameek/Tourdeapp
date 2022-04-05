@@ -35,17 +35,24 @@ function verifyToken(){
    }   
 
 function toSklad() {
-  if($_SESSION["roles"]['manazer'] == "Ano" or $_SESSION["roles"]['vedouci'] == "1" or $_SESSION["roles"]['prodavac'] == "Ano") { ?>
-    <form action="skladManazer.php">
-      <input type="submit" value="Sklad">
-    </form>
+  if(isset($_POST['sklad']))
+   {
+    if($_SESSION["roles"]['manazer'] == "Ano" or $_SESSION["roles"]['vedouci'] == "1" or $_SESSION["roles"]['prodavac'] == "Ano") {
+      $toSklad = "skladManazer.php";
+     }
+   else { 
+    $toSklad = "skladSkladnik.php";
+   }
+  $host  = $_SERVER['HTTP_HOST'];
+  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  header("Location: http://$host$uri/$toSklad");
+  exit;
+  } ?>
+  <form method="post">
+  <input type="submit" name="sklad" value="Sklad">
+ </form>
+  
  <?php }
- else { ?>
-  <form action="skladSkladnik.php">
-    <input type="submit" value="Sklad">
-  </form>
- <?php }
- }
 function toPokladna() {
   if($_SESSION["roles"]['manazer'] == "Ano" or $_SESSION["roles"]['vedouci'] == "Ano") { ?>
     <form action="pokladnaManazer.php">
@@ -76,18 +83,18 @@ function toKalendar() {
  <?php }
  }
 function toManagement() {
-  if($_SERVER['REQUEST_METHOD'] == "POST")
+  if(isset($_POST['management']))
    {
   $host  = $_SERVER['HTTP_HOST'];
   $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  $extra = 'management.php';
-  header("Location: http://$host$uri/$extra");
+  $toManagement = 'management.php';
+  header("Location: http://$host$uri/$toManagement");
   exit;
   }
 
   if($_SESSION["roles"]['manazer'] == "Ano") { ?>
     <form method="post">
-      <input type="submit" value="Správa uživatelů">
+      <input type="submit" name="management" value="Správa uživatelů">
     </form>
  <?php }
  } 
