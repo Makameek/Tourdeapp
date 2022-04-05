@@ -29,5 +29,8 @@ echo ("</tr>");
 }
 echo ("</table>");
 echo ("<br>");
-
 ?>
+<a href="addUser.php" target="_parent">Vytvoření nového uživatele</a><br><br>
+<a href="deleteUser.php">Smazání uživatele</a><br><br>
+<a href="Menu.php">Zpět do Hlavního menu</a><br><br>
+

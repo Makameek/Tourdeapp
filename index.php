@@ -13,9 +13,9 @@
  session_start();
  usersConnect();
 
-     $sql = "CREATE TABLE IF NOT EXISTS`login`(ID int NOT NULL PRIMARY KEY, names VARCHAR(30), username VARCHAR(30) NOT NULL, passwords VARCHAR(30) NOT NULL, manazer VARCHAR(50), vedouci VARCHAR(50), prodavac VARCHAR(50), skladnik VARCHAR(50))";
+     $sql = "CREATE TABLE IF NOT EXISTS`login`(ID int NOT NULL PRIMARY KEY AUTO_INCREMENT, names VARCHAR(30), username VARCHAR(30) NOT NULL, passwords VARCHAR(30) NOT NULL, manazer VARCHAR(50), vedouci VARCHAR(50), prodavac VARCHAR(50), skladnik VARCHAR(50))";
      if ($_SESSION["conn"]->query($sql) === TRUE) {
-        $adminCreate = "INSERT IGNORE INTO login(`names`, `username`, `passwords`, `manazer`, `vedouci`, `prodavac`, `skladnik`) VALUES ('admin','admin','admin','Ano','Ano','Ano','Ano')";
+        $adminCreate = "INSERT IGNORE INTO login(`ID`,`names`, `username`, `passwords`, `manazer`, `vedouci`, `prodavac`, `skladnik`) VALUES (1,'admin','admin','admin','Ano','Ano','Ano','Ano')";
        if($_SESSION["conn"]->query($adminCreate) === TRUE) {
            $_SESSION["switch"] = 1;
         header("Location: login.php");

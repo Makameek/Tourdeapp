@@ -76,18 +76,22 @@ function toKalendar() {
  <?php }
  }
 function toManagement() {
+  if($_SERVER['REQUEST_METHOD'] == "POST")
+   {
+  $host  = $_SERVER['HTTP_HOST'];
+  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $extra = 'management.php';
+  header("Location: http://$host$uri/$extra");
+  exit;
+  }
+
   if($_SESSION["roles"]['manazer'] == "Ano") { ?>
-    <form action="management.php">
+    <form method="post">
       <input type="submit" value="Správa uživatelů">
     </form>
  <?php }
  } 
-function todeleteUser() { ?>
-  <form name="deleteForm" method="post" action="deleteUser.php">
-  <input type="text" name="delete" value="Zadejte jméno" />
-  <input type="Submit" name="delbutton" id="Submit" value="Smazat" />
- </form>
- <?php
- }
- ?>
+
+
+?>
  
