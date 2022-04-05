@@ -98,7 +98,18 @@ function toManagement() {
     </form>
  <?php }
  } 
+function skladConnect() {
+  $conn = 0;
+  $dbservername = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $database = "sklad";
+ 
+  $_SESSION["cons"] = new mysqli($dbservername, $dbusername, $dbpassword, $database);
+  if ($_SESSION["cons"]->connect_error) {
+    die("Connection failed: " . $cons->connect_error);
+  }
 
-
+ }
 ?>
  
