@@ -1,4 +1,5 @@
 <?php
+
 function usersConnect() {
     $conn = 0;
     $dbservername = "localhost";
@@ -28,91 +29,88 @@ function verifyToken(){
         header('Location: Menu.php'); 
     }
     else {
-        ?>
-          <div class = "errBox1 order3">
-            <span>Špatné jméno nebo heslo</span>
-          </div>
-        <?php
+        echo("Špatné jméno, nebo heslo.");
     }
 
     $_SESSION["conn"]->close();
    }   
 
 function toSklad() {
-  if($_SESSION["roles"]['manazer'] == "Ano" or $_SESSION["roles"]['vedouci'] == "1" or $_SESSION["roles"]['prodavac'] == "Ano") { ?>
-    <form action="skladManazer.php">
-      <input type="submit" value="Sklad" class = "menuButton order1">
-    </form>
+  if(isset($_POST['sklad']))
+   {
+    if($_SESSION["roles"]['manazer'] == "Ano" or $_SESSION["roles"]['vedouci'] == "1" or $_SESSION["roles"]['prodavac'] == "Ano") {
+      $toSklad = "skladManazer.php";
+     }
+   else { 
+    $toSklad = "skladSkladnik.php";
+   }
+  $host  = $_SERVER['HTTP_HOST'];
+  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  header("Location: http://$host$uri/$toSklad");
+  exit;
+  } ?>
+  <form method="post">
+  <input type="submit" name="sklad" value="Sklad">
+ </form>
+  
  <?php }
- else { ?>
-  <form action="skladSkladnik.php">
-    <input type="submit" value="Sklad" class = "menuButton order1">
-  </form>
- <?php }
- }
 function toPokladna() {
   if($_SESSION["roles"]['manazer'] == "Ano" or $_SESSION["roles"]['vedouci'] == "Ano") { ?>
     <form action="pokladnaManazer.php">
-      <input type="submit" value="Pokladna" class = "menuButton order2">
+      <input type="submit" value="Pokladna">
     </form>
  <?php }
  elseif($_SESSION["roles"]['prodavac'] == "Ano") { ?>
   <form action="pokladnaProdavac.php">
-    <input type="submit" value="Pokladna" class = "menuButton order2">
+    <input type="submit" value="Pokladna">
   </form>
  <?php }
  }
 function toKalendar() {
   if($_SESSION["roles"]['manazer'] == "Ano") { ?>
     <form action="kalendarManazer.php">
-      <input type="submit" value="Směny" class = "menuButton order3">
+      <input type="submit" value="Kalendář">
     </form>
  <?php }
  elseif($_SESSION["roles"]['vedouci'] == "Ano") { ?>
   <form action="kalendarVedouci.php">
-    <input type="submit" value="Směny" class = "menuButton order3">
+    <input type="submit" value="Kalendář">
   </form>
  <?php } 
  else { ?>
   <form action="kalendarProdavac.php">
-    <input type="submit" value="Směny" class = "menuButton order3">
+    <input type="submit" value="Kalendář">
   </form>
  <?php }
  }
 function toManagement() {
+  if(isset($_POST['management']))
+   {
+  $host  = $_SERVER['HTTP_HOST'];
+  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $toManagement = 'management.php';
+  header("Location: http://$host$uri/$toManagement");
+  exit;
+  }
+
   if($_SESSION["roles"]['manazer'] == "Ano") { ?>
-    <form action="management.php">
-      <input type="submit" value="Účty" class = "menuButton order4">
+    <form method="post">
+      <input type="submit" name="management" value="Správa uživatelů">
     </form>
  <?php }
  } 
-function todeleteUser() { ?>
-  <form name="deleteForm" method="post" action="deleteUser.php">
-  <input type="text" name="delete" value="Zadejte jméno" />
-  <input type="Submit" name="delbutton" id="Submit" value="Smazat" />
- </form>
- <?php
+function skladConnect() {
+  $conn = 0;
+  $dbservername = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $database = "sklad";
+ 
+  $_SESSION["cons"] = new mysqli($dbservername, $dbusername, $dbpassword, $database);
+  if ($_SESSION["cons"]->connect_error) {
+    die("Connection failed: " . $cons->connect_error);
+  }
+
  }
-function getStatus() {
-  if($_SESSION["roles"]['manazer'] == "Ano") { ?>
-    <div class = "menuHeader">
-      <span>Manažer</span>
-    </div>
-  <?php }
-  elseif($_SESSION["roles"]['vedouci'] == "Ano") { ?>
-    <div class = "menuHeader">
-      <span>Vedoucí směny</span>
-    </div>
-  <?php } 
-  elseif($_SESSION["roles"]['skladnik'] == "Ano") { ?>
-    <div class = "menuHeader">
-      <span>Skladník</span>
-    </div>
-  <?php }
-  elseif($_SESSION["roles"]['prodavac'] == "Ano") { ?>
-    <div class = "menuHeader">
-      <span>Prodavač</span>
-    </div>
-  <?php }
-}
 ?>
+ 

@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include 'funkce.php';
 $_POST["formManazer"] = 0;
