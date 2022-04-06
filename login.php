@@ -34,14 +34,13 @@ $_SESSION["roles"] = 0;
             <input type="submit" value="Přihlásit" name="login" class = "loginBox4">
           </form>
         </div>
+        <?php
+          if(isset($_POST['login'])) {
+          usersConnect();
+          verifyToken();
+          }
+        ?>
       </div>
     </div>
   </body>
 </html>
-
-<?php
-if(isset($_POST['login'])) {
-usersConnect();
-verifyToken();
-}
-?>

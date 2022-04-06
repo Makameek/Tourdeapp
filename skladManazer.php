@@ -1,34 +1,45 @@
 <?php
-session_start();
-if(!$_SESSION["switchSklad"]==1){
- $host  = $_SERVER['HTTP_HOST'];
-  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  $toSklad = 'createSklad.php';
-  header("Location: http://$host$uri/$toSklad");
-  exit;
- } 
-echo("sklad manažer, vedoucí, prodavač");
-if($_SESSION["switchSklad"]==1) {
-    echo("databáze sklad existuje");
-}
-include 'funkce.php';
-
-skladConnect();
-$dbtable = $_SESSION["cons"]->query("SELECT * FROM prod");
-echo ("<h1>Sklad:</h1>");
-echo ("<table border='1px'>
-<tr>
-<th>Produkt</th>
-<th>Počet</th>
-</tr>");
-
-while($row = mysqli_fetch_array($dbtable))
-{
-echo ("<tr>");
-echo ("<td>" . $row['names'] . "</td>");
-echo ("<td>" . $row['username'] . "</td>");
-echo ("</tr>");
-}
-echo ("</table>");
-echo ("<br>");
+	session_start();
+	include 'funkce.php';
+	usersConnect();
+	$dbtable = $_SESSION["conn"]->query("SELECT * FROM login");
 ?>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <title>TDA Sklad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
+        <div class = "menuBox1">
+            <?php getStatus() ?>
+            <div class = "menuBox2">                
+                <div class = "menuButtonBlack"><span>Sklad</span></div>
+                <?php
+                    toPokladna();
+                    toKalendar();
+                    toManagement();
+                ?>
+            </div>
+            <div class = "menuBox3">
+                <div class = "menuBox4">
+                    <div class = "menuLabel">
+                        <span>Přihlášen</span>
+                    </div>
+                    <div class = "menuUser">
+                        <?php
+                            $user = $_SESSION["username"];
+                            echo "$user";
+                        ?>
+                        <span>JanRačanský</span> 
+                    </div>
+                </div>
+                <form action=logout.php>
+                    <input type="submit" value="Odhlásit" name="logout" class = "menuButton">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
